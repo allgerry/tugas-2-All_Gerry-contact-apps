@@ -18,6 +18,8 @@ function viewMenu() { //fungsi untuk menampilkan halaman menu
     console.log("1.Tambah Data \n");
     console.log("2.Lihat Data \n");
     console.log("3.Hapus Data \n");
+    console.log("4.Pencarian Data \n");
+    console.log("5. Reset Data \n");
     readline.question(`Silahkan Masukan Pilihan Anda  :`, input => {
         mainMenu(Number(input))
     });
@@ -76,14 +78,36 @@ function lihatData () { // fungsi untuk melihat list data
 }
 
 function resetData () {
-    // tambahkan fungsi reset  data disini
+    databaseKontak.length = 0
+    console.log("Data telah direset");
+    kembali();
 }
 
 function pencarianData () {
-    // tambahkan fungsi pencarian data disini 
+    readline.question("Memasukkan nama yang ingin dicari: ", (nama) => {
+        const hasilPencarian = databaseKontak.filter(kontak => kontak.nama.toLowerCase()=== nama.toLowerCase());
+    
+        if (hasilPencarian.length > 0){
+            console.table(hasilPencarian);
+        } else {
+            console.log(`Data dengan nama ${nama} tidak ditemukan.`);
+        }
+        kembali();
+    });
 }
 function hapusData () {
-    // tambahkan fungsi hapus data data disini 
+    readline.question("Masukkan nama yang ingin dihapus: ", (nama) => {
+        const indexHapus = databaseKontak.findIndex (kontak => kontak.nama.toLowerCase()=== nama.toLowerCase());
+
+        if (indexHapus !== -1) {
+            databaseKontak.splice(indexHapus, 1);
+            console.log(`Data dengan nama ${nama} telah dihapus`);
+            
+        }else {
+            console.log(`Data dengan nama ${nama} tidak diteemukan`);
+        }
+        kembali();
+    })
 }
 
 
